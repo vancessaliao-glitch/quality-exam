@@ -97,7 +97,29 @@ button{
 #result{
     display:none;
 }
+.wrong-card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    margin:15px 0;
+}
 
+.wrong-answer{
+    background:#ffeaea;
+    color:#c00000;
+    padding:10px;
+    border-radius:6px;
+    margin-top:10px;
+}
+
+.correct-answer{
+    background:#e8fff0;
+    color:#008000;
+    padding:10px;
+    border-radius:6px;
+    margin-top:10px;
+}
 @media(max-width:768px){
 
 .info{
@@ -471,30 +493,20 @@ else{
 const userAns = answers[i];
 
 review += `
-6
 <div class="wrong-card">
 
 <h3>❌ 第 ${i+1} 題</h3>
 
-<p>
-<strong>題目：</strong>
-${q.q}
-</p>
+<p><strong>題目：</strong>${q.q}</p>
 
 <div class="wrong-answer">
 <strong>您的答案：</strong>
-${
-userAns
-? `${userAns}. ${q[userAns]}`
-: "未作答"
-21
-}
+${userAns? `${userAns}. ${q[userAns]}`: "未作答"}
 </div>
 
 <div class="correct-answer">
 <strong>正確答案：</strong>
 ${q.answer}. ${q[q.answer]}
-
 </div>
 
 </div>
