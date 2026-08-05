@@ -87,10 +87,11 @@ button{
 }
 
 .wrong{
-    margin:10px 0;
+    background:#ffffff;
+    border:1px solid #ddd;
+    color:#c00000;
     padding:10px;
-    background:#ffebee;
-    border-left:5px solid red;
+    border-radius:6px;
 }
 
 #result{
@@ -467,28 +468,36 @@ score++;
 }
 else{
 
-review+=`
+const userAns = answers[i];
 
-<div class="wrong">
+review += `
+6
+<div class="wrong-card">
 
-<b>第 ${i+1} 題</b>
+<h3>❌ 第 ${i+1} 題</h3>
 
-<br><br>
-
+<p>
+<strong>題目：</strong>
 ${q.q}
+</p>
 
-<br><br>
+<div class="wrong-answer">
+<strong>您的答案：</strong>
+${
+userAns
+? `${userAns}. ${q[userAns]}`
+: "未作答"
+21
+}
+</div>
 
-您的答案：
-${answers[i] || "未作答"}
-
-<br>
-
-正確答案：
-<b>${q.answer}</b>
+<div class="correct-answer">
+<strong>正確答案：</strong>
+${q.answer}. ${q[q.answer]}
 
 </div>
 
+</div>
 `;
 
 }
