@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>公共工程品質管理模擬測驗系統</title>
+<title>國立中央大學公共工程品質管理模擬測驗系統</title>
 
 <style>
 
@@ -42,9 +42,22 @@ h1{
 .option{
     border:1px solid #ddd;
     border-radius:8px;
-    padding:12px;
-    margin:10px 0;
+    padding:18px;
+    margin:12px 0;
+    cursor:pointer;
+    font-size:18px;
+    line-height:1.8;
 }
+.option label{
+    display:block;
+    width:100%;
+    cursor:pointer;
+}
+.option input[type=radio]{
+    transform:scale(1.5);
+    margin-right:10px;
+}
+
 
 .option:hover{
     background:#f5faff;
@@ -106,8 +119,10 @@ button{
 
 <div class="card">
 
-<h1>公共工程品質管理模擬測驗</h1>
-
+<h1>國立中央大學公共工程品質管理模擬測驗</h1>
+<p style="color:#666;font-size:18px;">
+公共工程品質管理訓練班(土建)
+模擬測驗系統</p>
 <p>
 100題 ｜ 90分鐘 ｜ 60分及格
 </p>
@@ -428,7 +443,13 @@ submitExam();
 //=================================
 
 function submitExam(){
-
+    const confirmSubmit = confirm(
+        "確定要交卷嗎？\n\n交卷後將無法再修改答案。"
+        );
+    if(!confirmSubmit){
+        return;
+        }
+    
 clearInterval(timer);
 
 let score=0;
