@@ -218,6 +218,55 @@ return array;
 
 function parseQuestion(text){
 
+function downloadReview(){
+
+    let txt = "";
+
+    examQuestions.forEach((q,i)=>{
+
+        txt += `
+========================
+
+第 ${i+1} 題
+
+題目：
+${q.q}
+
+A. ${q.A}
+B. ${q.B}
+C. ${q.C}
+D. ${q.D}
+
+您的答案：
+${answers[i]
+? answers[i] + ". " + q[answers[i]]
+: "未作答"}
+
+正確答案：
+${q.answer}. ${q[q.answer]}
+
+`;
+    });
+
+    const blob = new Blob(
+        [txt],
+        {
+            type:"text/plain;charset=utf-8"
+        }
+    );
+
+    const a =
+        document.createElement("a");
+
+    a.href =
+        URL.createObjectURL(blob);
+
+    a.download =
+        "模擬測驗結果.txt";
+
+    a.click();
+}
+
 const regex=
 /(.*)\(A\)(.*?)\(B\)(.*?)\(C\)(.*?)\(D\)(.*)/s;
 
@@ -242,136 +291,68 @@ D:m[5].trim()
 }
 
 //=================================
-
+loadQuestions();
+</script>
 async function loadQuestions(){
+    async function loadQuestions(){
+        
+    const response = await fetch("questions.csv");
+    const csv = await response.text();
 
-const response=
-await fetch("questions.csv");
+    const rows = csv.split(/\r?\n/);
 
-const csv=
-await response.text();
+    for(let i=1;i<rows.length;i++){
 
-const rows=
-csv.split(/\r?\n/);
+        const row = rows[i].trim();
 
-for(let i=1;i<rows.length;i++){
+        if(!row) continue;
 
-const row=rows[i];
+        const cols = row.split(",");
 
-if(!row.trim()) continue;
+        if(cols.length < 5) continue;
 
-const first=row.indexOf(",");
-const second=row.indexOf(",",first+1);
-const last=row.lastIndexOf(",");
-const secondLast=row.lastIndexOf(",",last-1);
+        const answer =
+            cols[cols.length-1].trim();
 
-if(
-first<0||
-second<0||
-last<0||
-secondLast<0
-){
-continue;
-}
+        const questionText =
+            cols.slice(2, cols.length-2).join(",");
 
-const category=
-row.substring(first+1,second);
+        const p = parseQuestion(questionText);
 
-const qText=
-row.substring(
-second+1,
-secondLast
-);
+        if(!p) continue;
 
-const answer=
-row.substring(last+1).trim();
+        questionBank.push({
+            q:p.question,
+            A:p.A,
+            B:p.B,
+            C:p.C,
+            D:p.D,
+            answer:answer
+        });
+    }
 
-const p=parseQuestion(qText);
+    console.log(
+        "題庫載入完成：",
+        questionBank.length
+    );
 
-if(!p) continue;
+    examQuestions =
+        shuffle([...questionBank])
+        .slice(0,100);
 
-questionBank.push({
+    answers =
+        new Array(100).fill(null);
 
-category:category,
-
-q:p.question,
-
-A:p.A,
-
-B:p.B,
-
-C:p.C,
-
-D:p.D,
-
-answer:answer
-
-});
-
-}
-
-examQuestions=
-shuffle([...questionBank])
-.slice(0,100);
-
-answers=
-new Array(100).fill(null);
-
-renderQuestion();
-
-}
+    renderQuestion();}
 
 //=================================
+loadQuestions();
 
-function renderQuestion(){
+</script>
 
-const q=
-examQuestions[current];
+</body>
 
-document.getElementById("qno").innerText=
-current+1;
-
-document.getElementById("question").innerText=
-(current+1)+". "+q.q;
-
-let html="";
-
-["A","B","C","D"]
-.forEach(opt=>{
-
-html+=`
-<div class="option">
-
-<label>
-
-<input
-type="radio"
-name="answer"
-value="${opt}"
-
-${answers[current]===opt
-?"checked":""
-}
-
-onchange="saveAnswer('${opt}')">
-
-${opt}. ${q[opt]}
-
-</label>
-
-</div>
-`;
-
-});
-
-document.getElementById("options")
-.innerHTML=html;
-
-updateCounter();
-
-}
-
-//=================================
+</html>
 
 function saveAnswer(ans){
 
@@ -387,7 +368,7 @@ document.getElementById("answered")
 .innerText=
 answers.filter(
 x=>x!==null
-).length;
+.length;
 
 }
 
@@ -481,14 +462,45 @@ let review="";
 
 examQuestions.forEach((q,i)=>{
 
-if(
-answers[i]===q.answer
-){
+const userAns = answers[i];
 
-score++;
+const isCorrect = userAns === q.answer;
 
+if(isCorrect){
+    score++;
 }
-else{
+
+review += `
+
+<div class="wrong-card">
+
+    <h3>
+        ${isCorrect ? "✅" : "❌"}
+        第 ${i+1} 題
+    </h3>
+
+    <p>
+        <strong>題目：</strong>
+        ${q.q}
+    </p>
+
+    <div class="wrong-answer">
+        <strong>您的答案：</strong>
+        ${
+            userAns
+            ? `${userAns}. ${q[userAns]}`
+            : "未作答"
+        }
+    </div>
+
+    <div class="correct-answer">
+        <strong>正確答案：</strong>
+        ${q.answer}. ${q[q.answer]}
+    </div>
+
+</div>
+
+`;
 
 const userAns = answers[i];
 
@@ -537,7 +549,7 @@ ${score>=60?'✅及格':'❌不及格'}
 
 <hr>
 
-<h3>錯題檢討</h3>
+<h3>完整試卷與答案</h3>
 
 ${review}
 
@@ -546,8 +558,16 @@ class="btn-success"
 onclick="location.reload()">
 
 重新測驗
-
+<button
+class="btn-primary"
+onclick="downloadReview()">
+📥下載完整考卷
 </button>
+
+<button
+class="btn-success"
+onclick="location.reload()">
+
 
 `;
 
