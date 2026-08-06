@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+F<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="utf-8">
@@ -218,6 +218,55 @@ return array;
 
 function parseQuestion(text){
 
+function downloadReview(){
+
+    let txt = "";
+
+    examQuestions.forEach((q,i)=>{
+
+        txt += `
+========================
+
+第 ${i+1} 題
+
+題目：
+${q.q}
+
+A. ${q.A}
+B. ${q.B}
+C. ${q.C}
+D. ${q.D}
+
+您的答案：
+${answers[i]
+? answers[i] + ". " + q[answers[i]]
+: "未作答"}
+
+正確答案：
+${q.answer}. ${q[q.answer]}
+
+`;
+    });
+
+    const blob = new Blob(
+        [txt],
+        {
+            type:"text/plain;charset=utf-8"
+        }
+    );
+
+    const a =
+        document.createElement("a");
+
+    a.href =
+        URL.createObjectURL(blob);
+
+    a.download =
+        "模擬測驗結果.txt";
+
+    a.click();
+}
+
 const regex=
 /(.*)\(A\)(.*?)\(B\)(.*?)\(C\)(.*?)\(D\)(.*)/s;
 
@@ -242,132 +291,59 @@ D:m[5].trim()
 }
 
 //=================================
-
+loadQuestions();
+</script>
 async function loadQuestions(){
 
-const response=
-await fetch("questions.csv");
+    const response = await fetch("questions.csv");
+    const csv = await response.text();
 
-const csv=
-await response.text();
+    const rows = csv.split(/\r?\n/);
 
-const rows=
-csv.split(/\r?\n/);
+    for(let i=1;i<rows.length;i++){
 
-for(let i=1;i<rows.length;i++){
+        const row = rows[i].trim();
 
-const row=rows[i];
+        if(!row) continue;
 
-if(!row.trim()) continue;
+        const cols = row.split(",");
 
-const first=row.indexOf(",");
-const second=row.indexOf(",",first+1);
-const last=row.lastIndexOf(",");
-const secondLast=row.lastIndexOf(",",last-1);
+        if(cols.length < 5) continue;
 
-if(
-first<0||
-second<0||
-last<0||
-secondLast<0
-){
-continue;
+        const answer =
+            cols[cols.length-1].trim();
+
+        const questionText =
+            cols.slice(2, cols.length-2).join(",");
+
+        const p = parseQuestion(questionText);
+
+        if(!p) continue;
+
+        questionBank.push({
+            q:p.question,
+            A:p.A,
+            B:p.B,
+            C:p.C,
+            D:p.D,
+            answer:answer
+        });
+    }
+
+    console.log(
+        "題庫載入完成：",
+        questionBank.length
+    );
+
+    examQuestions =
+        shuffle([...questionBank])
+        .slice(0,100);
+
+    answers =
+        new Array(100).fill(null);
+
+    renderQuestion();
 }
-
-const category=
-row.substring(first+1,second);
-
-const qText=
-row.substring(
-second+1,
-secondLast
-);
-
-const answer=
-row.substring(last+1).trim();
-
-const p=parseQuestion(qText);
-
-if(!p) continue;
-
-questionBank.push({
-
-category:category,
-
-q:p.question,
-
-A:p.A,
-
-B:p.B,
-
-C:p.C,
-
-D:p.D,
-
-answer:answer
-
-});
-
-}
-
-examQuestions=
-shuffle([...questionBank])
-.slice(0,100);
-
-answers=
-new Array(100).fill(null);
-
-renderQuestion();
-
-}
-
-//=================================
-
-function renderQuestion(){
-
-const q=
-examQuestions[current];
-
-document.getElementById("qno").innerText=
-current+1;
-
-document.getElementById("question").innerText=
-(current+1)+". "+q.q;
-
-let html="";
-
-["A","B","C","D"]
-.forEach(opt=>{
-
-html+=`
-<div class="option">
-
-<label>
-
-<input
-type="radio"
-name="answer"
-value="${opt}"
-
-${answers[current]===opt
-?"checked":""
-}
-
-onchange="saveAnswer('${opt}')">
-
-${opt}. ${q[opt]}
-
-</label>
-
-</div>
-`;
-
-});
-
-document.getElementById("options")
-.innerHTML=html;
-
-updateCounter();
 
 }
 
@@ -546,8 +522,16 @@ class="btn-success"
 onclick="location.reload()">
 
 重新測驗
-
+<button
+class="btn-primary"
+onclick="downloadReview()">
+📥下載完整考卷
 </button>
+
+<button
+class="btn-success"
+onclick="location.reload()">
+
 
 `;
 
