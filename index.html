@@ -343,11 +343,17 @@ async function loadQuestions(){
         new Array(100).fill(null);
 
     renderQuestion();
-}
 
 }
 
 //=================================
+loadQuestions();
+
+</script>
+
+</body>
+
+</html>
 
 function saveAnswer(ans){
 
@@ -363,7 +369,7 @@ document.getElementById("answered")
 .innerText=
 answers.filter(
 x=>x!==null
-).length;
+.length;
 
 }
 
