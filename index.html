@@ -294,7 +294,8 @@ D:m[5].trim()
 loadQuestions();
 </script>
 async function loadQuestions(){
-
+    async function loadQuestions(){
+        
     const response = await fetch("questions.csv");
     const csv = await response.text();
 
@@ -342,9 +343,7 @@ async function loadQuestions(){
     answers =
         new Array(100).fill(null);
 
-    renderQuestion();
-
-}
+    renderQuestion();}
 
 //=================================
 loadQuestions();
