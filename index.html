@@ -508,14 +508,46 @@ let review="";
 
 examQuestions.forEach((q,i)=>{
 
-if(
-answers[i]===q.answer
-){
+const userAns = answers[i];
 
-score++;
+const isCorrect =
+    userAns === q.answer;
 
+if(isCorrect){
+    score++;
 }
-else{
+
+review += `
+
+<div class="wrong-card">
+
+    <h3>
+        ${isCorrect ? "✅" : "❌"}
+        第 ${i+1} 題
+    </h3>
+
+    <p>
+        <strong>題目：</strong>
+        ${q.q}
+    </p>
+
+    <div class="wrong-answer">
+        <strong>您的答案：</strong>
+        ${
+            userAns
+            ? `${userAns}. ${q[userAns]}`
+            : "未作答"
+        }
+    </div>
+
+    <div class="correct-answer">
+        <strong>正確答案：</strong>
+        ${q.answer}. ${q[q.answer]}
+    </div>
+
+</div>
+
+`;
 
 const userAns = answers[i];
 
@@ -564,7 +596,7 @@ ${score>=60?'✅及格':'❌不及格'}
 
 <hr>
 
-<h3>錯題檢討</h3>
+<h3>完整試卷與答案</h3>
 
 ${review}
 
