@@ -240,85 +240,115 @@ D:m[5].trim()
 };
 
 }
+function downloadReview(){
 
+    let txt = "";
+
+    examQuestions.forEach((q,i)=>{
+
+        const userAns = answers[i];
+
+        txt += `
+
+================================
+
+第 ${i+1} 題
+
+題目：
+${q.q}
+
+A. ${q.A}
+B. ${q.B}
+C. ${q.C}
+D. ${q.D}
+
+您的答案：
+${userAns
+? `${userAns}. ${q[userAns]}`
+: "未作答"}
+
+正確答案：
+${q.answer}. ${q[q.answer]}
+
+`;
+
+    });
+
+    const blob = new Blob(
+        [txt],
+        {
+            type:"text/plain;charset=utf-8"
+        }
+    );
+
+    const a = document.createElement("a");
+
+    a.href = URL.createObjectURL(blob);
+
+    a.download = "模擬測驗結果.txt";
+
+    a.click();
+}
 //=================================
 
 async function loadQuestions(){
 
-const response=
-await fetch("questions.csv");
+    const response =
+        await fetch("questions.csv");
 
-const csv=
-await response.text();
+    const csv =
+        await response.text();
 
-const rows=
-csv.split(/\r?\n/);
+    const rows =
+        csv.split(/\r?\n/);
 
-for(let i=1;i<rows.length;i++){
+    questionBank = [];
 
-const row=rows[i];
+    for(let i=1;i<rows.length;i++){
 
-if(!row.trim()) continue;
+        const row = rows[i].trim();
 
-const first=row.indexOf(",");
-const second=row.indexOf(",",first+1);
-const last=row.lastIndexOf(",");
-const secondLast=row.lastIndexOf(",",last-1);
+        if(!row) continue;
 
-if(
-first<0||
-second<0||
-last<0||
-secondLast<0
-){
-continue;
-}
+        const cols = row.split(",");
 
-const category=
-row.substring(first+1,second);
+        if(cols.length < 5) continue;
 
-const qText=
-row.substring(
-second+1,
-secondLast
-);
+        const answer =
+            cols[cols.length-1].trim();
 
-const answer=
-row.substring(last+1).trim();
+        const questionText =
+            cols.slice(2, cols.length-2)
+            .join(",");
 
-const p=parseQuestion(qText);
+        const p =
+            parseQuestion(questionText);
 
-if(!p) continue;
+        if(!p) continue;
 
-questionBank.push({
+        questionBank.push({
+            q:p.question,
+            A:p.A,
+            B:p.B,
+            C:p.C,
+            D:p.D,
+            answer:answer
+        });
+    }
 
-category:category,
+    console.log(
+        "題庫載入完成：",
+        questionBank.length
+    );
 
-q:p.question,
+    examQuestions =
+        shuffle([...questionBank])
+        .slice(0,100);
 
-A:p.A,
+    answers =
+        new Array(100).fill(null);
 
-B:p.B,
-
-C:p.C,
-
-D:p.D,
-
-answer:answer
-
-});
-
-}
-
-examQuestions=
-shuffle([...questionBank])
-.slice(0,100);
-
-answers=
-new Array(100).fill(null);
-
-renderQuestion();
-
+    renderQuestion();
 }
 
 //=================================
@@ -464,108 +494,115 @@ submitExam();
 },1000);
 
 //=================================
+function submitExam()
 
-function submitExam(){
+
+
     const confirmSubmit = confirm(
         "確定要交卷嗎？\n\n交卷後將無法再修改答案。"
-        );
+    );
+
     if(!confirmSubmit){
         return;
+    }
+
+    clearInterval(timer);
+
+    let score = 0;
+    let review = "";
+
+    examQuestions.forEach((q,i)=>{
+
+        const userAns = answers[i];
+
+        const isCorrect =
+            userAns === q.answer;
+
+        if(isCorrect){
+            score++;
         }
+
+        review += `
+
+        <div class="wrong-card">
+
+            <h3>
+                ${isCorrect ? "✅" : "❌"}
+                第 ${i+1} 題
+            </h3>
+
+            <p>
+                <strong>題目：</strong>
+                ${q.q}
+            </p>
+
+            <div class="wrong-answer">
+                <strong>您的答案：</strong>
+                ${
+                    userAns
+                    ? `${userAns}. ${q[userAns]}`
+                    : "未作答"
+                }
+            </div>
+
+            <div class="correct-answer">
+                <strong>正確答案：</strong>
+                ${q.answer}. ${q[q.answer]}
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("result")
+    .innerHTML = `
+
+        <h2>測驗完成</h2>
+
+        <h1>${score} 分</h1>
+
+        <h2 style="
+        color:${score>=60?'green':'red'};
+        ">
+        ${score>=60?'✅及格':'❌不及格'}
+        </h2>
+
+        <p>答對：${score} 題</p>
+
+        <p>答錯：${100-score} 題</p>
+
+        <button
+        class="btn-primary"
+        onclick="downloadReview()">
+        📥下載完整考卷
+        </button>
+
+        <button
+        class="btn-success"
+        onclick="location.reload()">
+        重新測驗
+        </button>
+
+        <hr>
+
+        <h3>完整試卷與答案</h3>
+
+        ${review}
+
+    `;
+
     
-clearInterval(timer);
+       
 
-let score=0;
 
-let review="";
 
-examQuestions.forEach((q,i)=>{
 
-if(
-answers[i]===q.answer
-){
-
-score++;
-
-}
-else{
-
-const userAns = answers[i];
-
-review += `
-<div class="wrong-card">
-
-<h3>❌ 第 ${i+1} 題</h3>
-
-<p><strong>題目：</strong>${q.q}</p>
-
-<div class="wrong-answer">
-<strong>您的答案：</strong>
-${userAns? `${userAns}. ${q[userAns]}`: "未作答"}
-</div>
-
-<div class="correct-answer">
-<strong>正確答案：</strong>
-${q.answer}. ${q[q.answer]}
-</div>
-
-</div>
-`;
-
-}
-
-});
-
-document.getElementById("result")
-.innerHTML=`
-
-<h2>測驗完成</h2>
-
-<h1>${score} 分</h1>
-
-<h2 style="
-color:${score>=60?'green':'red'};
-">
-
-${score>=60?'✅及格':'❌不及格'}
-
-</h2>
-
-<p>答對：${score} 題</p>
-
-<p>答錯：${100-score} 題</p>
-
-<hr>
-
-<h3>錯題檢討</h3>
-
-${review}
-
-<button
-class="btn-success"
-onclick="location.reload()">
-
-重新測驗
-
-</button>
-
-`;
-
-document.getElementById("examArea")
-.style.display="none";
-
-document.getElementById("result")
-.style.display="block";
-
-window.scrollTo(0,0);
-
-}
 
 //=================================
-
 loadQuestions();
 
 </script>
-
 </body>
 </html>
