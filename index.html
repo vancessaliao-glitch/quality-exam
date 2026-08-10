@@ -150,6 +150,20 @@ button{
 100題 ｜ 90分鐘 ｜ 60分及格
 </p>
 
+<div id="questionBankInfo"
+style="
+    margin-top:10px;
+    padding:12px;
+    background:linear-gradient(90deg,#1e3c72,#2a5298);
+    color:white;
+    border-radius:8px;
+    font-size:16px;
+    text-align:center;
+    font-weight:bold;
+">
+    題庫載入中...
+</div>
+
 <div class="info">
 <div>剩餘時間：<span id="timer">01:30:00</span></div>
 <div>已作答：<span id="answered">0</span>/100</div>
@@ -340,6 +354,8 @@ async function loadQuestions(){
         "題庫載入完成：",
         questionBank.length
     );
+    document.getElementById("questionBankInfo").innerHTML =
+`題庫：${questionBank.length}題 ｜ 來源更新：工程會115年08月10日版本 ｜ 由中央大學品管班提供`;
 
     examQuestions =
         shuffle([...questionBank])
