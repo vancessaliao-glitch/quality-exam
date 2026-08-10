@@ -494,9 +494,7 @@ submitExam();
 },1000);
 
 //=================================
-function submitExam()
-
-
+function submitExam(){
 
     const confirmSubmit = confirm(
         "確定要交卷嗎？\n\n交卷後將無法再修改答案。"
@@ -556,17 +554,14 @@ function submitExam()
 
     });
 
-    document.getElementById("result")
-    .innerHTML = `
+    document.getElementById("result").innerHTML = `
 
         <h2>測驗完成</h2>
 
         <h1>${score} 分</h1>
 
-        <h2 style="
-        color:${score>=60?'green':'red'};
-        ">
-        ${score>=60?'✅及格':'❌不及格'}
+        <h2 style="color:${score>=60?'green':'red'};">
+            ${score>=60?'✅及格':'❌不及格'}
         </h2>
 
         <p>答對：${score} 題</p>
@@ -574,15 +569,15 @@ function submitExam()
         <p>答錯：${100-score} 題</p>
 
         <button
-        class="btn-primary"
-        onclick="downloadReview()">
-        📥下載完整考卷
+            class="btn-primary"
+            onclick="downloadReview()">
+            📥下載完整考卷
         </button>
 
         <button
-        class="btn-success"
-        onclick="location.reload()">
-        重新測驗
+            class="btn-success"
+            onclick="location.reload()">
+            重新測驗
         </button>
 
         <hr>
@@ -593,16 +588,17 @@ function submitExam()
 
     `;
 
-    
-       
+    document.getElementById("examArea")
+    .style.display = "none";
 
+    document.getElementById("result")
+    .style.display = "block";
 
-
-
-
+    window.scrollTo(0,0);
+}
 //=================================
 loadQuestions();
 
 </script>
 </body>
-</html>
+</html>    
