@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){
-        (c[a].q=c[a].q||[]).push(arguments);
-    };
-    t=l.createElement(r);
-    t.async=1;
-    t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];
-    y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "y0h3pal3gk");
-</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>國立中央大學公共工程品質管理模擬測驗系統</title>
@@ -223,8 +210,6 @@ let examQuestions=[];
 let answers=[];
 let current=0;
 
-const EXAM_VERSION = "V8.1";
-
 //=================================
 
 function shuffle(array){
@@ -370,27 +355,16 @@ async function loadQuestions(){
         questionBank.length
     );
     document.getElementById("questionBankInfo").innerHTML =
-`題庫：${questionBank.length}題 ｜ 來源更新：工程會115年08月18日版本 ｜ 由中央大學品管班提供`;
+`題庫：${questionBank.length}題 ｜ 來源更新：工程會115年08月10日版本 ｜ 由中央大學品管班提供`;
 
     examQuestions =
         shuffle([...questionBank])
         .slice(0,100);
 
     answers =
-    new Array(100).fill(null);
+        new Array(100).fill(null);
 
-renderQuestion();
-
-renderQuestion();
-
-if(typeof clarity !== "undefined"){
-
-    clarity("set","ExamName","公共工程品質管理模擬測驗");
-
-    clarity("set","Version",EXAM_VERSION);
-
-    clarity("event","ExamStarted");
-
+    renderQuestion();
 }
 
 //=================================
@@ -473,17 +447,21 @@ current++;
 
 renderQuestion();
 
-if(typeof clarity !== "undefined"){
-    clarity("set","ExamName","公共工程品質管理模擬測驗");
-    clarity("set","Version",EXAM_VERSION);
-    clarity("event","ExamStarted");
-}
-
-
 }
 
 }
 
+function prevQuestion(){
+
+if(current>0){
+
+current--;
+
+renderQuestion();
+
+}
+
+}
 
 //=================================
 
@@ -544,14 +522,10 @@ function submitExam(){
 
     clearInterval(timer);
 
-if(typeof clarity !== "undefined"){
-    clarity("event","ExamSubmitted");
-}
+    let score = 0;
+    let review = "";
 
-let score = 0;
-let review = "";
-
-examQuestions.forEach((q,i)=>{
+    examQuestions.forEach((q,i)=>{
 
         const userAns = answers[i];
 
@@ -592,48 +566,10 @@ examQuestions.forEach((q,i)=>{
 
         </div>
 
-`;
+        `;
 
-});
-    const answeredCount =
-answers.filter(x => x !== null).length;
+    });
 
-if(typeof clarity !== "undefined"){
-
-    clarity("event","Score_" + score);
-
-    if(score >= 60){
-        clarity("event","ExamPass");
-    }else{
-        clarity("event","ExamFail");
-    }
-}
-
-const examData = {
-
-    time: new Date().toLocaleString(),
-
-    score: score,
-
-    result:
-        score >= 60
-        ? "及格"
-        : "不及格",
-
-    answered: answeredCount,
-
-    version: EXAM_VERSION
-};
-
-fetch(
-"https://script.google.com/macros/s/AKfycbyyLEveIw0mcLbIXmUT11w2P2SXQyNTjw_N72XSTKQveb7k_5BkiszMOPvst2d91KTTlw/exec",
-{
-    method:"POST",
-    body:JSON.stringify(examData)
-})
-.then(r=>r.text())
-.then(console.log)
-.catch(console.error);
     document.getElementById("result").innerHTML = `
 
         <h2>測驗完成</h2>
@@ -666,7 +602,7 @@ fetch(
 
         ${review}
 
-`;
+    `;
 
     document.getElementById("examArea")
     .style.display = "none";
@@ -678,13 +614,6 @@ fetch(
 }
 //=================================
 loadQuestions();
-function prevQuestion(){
-    if(current>0){
-        current--;
-        renderQuestion();
-    }
-}
-
 
 </script>
 </body>
