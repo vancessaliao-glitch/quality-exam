@@ -381,15 +381,7 @@ async function loadQuestions(){
 
 renderQuestion();
 
-if(typeof clarity !== "undefined"){
-
-    clarity("set","ExamName","公共工程品質管理模擬測驗");
-
-    clarity("set","Version",EXAM_VERSION);
-
-    clarity("event","ExamStarted");
-
-}
+renderQuestion();
 
 if(typeof clarity !== "undefined"){
 
