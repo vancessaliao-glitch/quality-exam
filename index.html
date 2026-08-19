@@ -1,157 +1,174 @@
-<!DOCTYPE html>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa<!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
+
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){
+        (c[a].q=c[a].q||[]).push(arguments);
+    };
+    t=l.createElement(r);
+    t.async=1;
+    t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y0h3pal3gk");
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>國立中央大學公共工程品質管理模擬測驗系統</title>
 
-<style>
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            background: #f4f6f9;
+            font-family: "Microsoft JhengHei", sans-serif;
+        }
 
-body{
-    margin:0;
-    padding:15px;
-    background:#f4f6f9;
-    font-family:"Microsoft JhengHei",sans-serif;
-}
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
 
-.container{
-    max-width:1000px;
-    margin:auto;
-}
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        }
 
-.card{
-    background:white;
-    border-radius:10px;
-    padding:20px;
-    margin-bottom:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
+        h1 {
+            color: #1565c0;
+            margin-top: 0;
+        }
 
-h1{
-    color:#1565c0;
-    margin-top:0;
-}
+        .info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-weight: bold;
+        }
 
-.info{
-    display:flex;
-    flex-wrap:wrap;
-    gap:20px;
-    font-weight:bold;
-}
+        .option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 12px 0;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1.8;
+        }
 
-.option{
-    border:1px solid #ddd;
-    border-radius:8px;
-    padding:18px;
-    margin:12px 0;
-    cursor:pointer;
-    font-size:18px;
-    line-height:1.8;
-}
-.option label{
-    display:block;
-    width:100%;
-    cursor:pointer;
-}
-.option input[type=radio]{
-    transform:scale(1.5);
-    margin-right:10px;
-}
+        .option label {
+            display: block;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .option input[type=radio] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
 
 
-.option:hover{
-    background:#f5faff;
-}
+        .option:hover {
+            background: #f5faff;
+        }
 
-button{
-    border:none;
-    padding:12px 18px;
-    border-radius:6px;
-    cursor:pointer;
-    margin:4px;
-}
+        button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 4px;
+        }
 
-.btn-primary{
-    background:#1976d2;
-    color:white;
-}
+        .btn-primary {
+            background: #1976d2;
+            color: white;
+        }
 
-.btn-success{
-    background:#2e7d32;
-    color:white;
-}
+        .btn-success {
+            background: #2e7d32;
+            color: white;
+        }
 
-.btn-danger{
-    background:#d32f2f;
-    color:white;
-}
+        .btn-danger {
+            background: #d32f2f;
+            color: white;
+        }
 
-.wrong{
-    background:#ffffff;
-    border:1px solid #ddd;
-    color:#c00000;
-    padding:10px;
-    border-radius:6px;
-}
+        .wrong {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            color: #c00000;
+            padding: 10px;
+            border-radius: 6px;
+        }
 
-#result{
-    display:none;
-}
-.wrong-card{
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:15px;
-    margin:15px 0;
-}
+        #result {
+            display: none;
+        }
 
-.wrong-answer{
-    background:#ffeaea;
-    color:#c00000;
-    padding:10px;
-    border-radius:6px;
-    margin-top:10px;
-}
+        .wrong-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
 
-.correct-answer{
-    background:#e8fff0;
-    color:#008000;
-    padding:10px;
-    border-radius:6px;
-    margin-top:10px;
-}
-@media(max-width:768px){
+        .wrong-answer {
+            background: #ffeaea;
+            color: #c00000;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
 
-.info{
-    flex-direction:column;
-    gap:10px;
-}
+        .correct-answer {
+            background: #e8fff0;
+            color: #008000;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
 
-button{
-    width:100%;
-}
+        @media(max-width:768px) {
 
-}
+            .info {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-</style>
+            button {
+                width: 100%;
+            }
+
+        }
+    </style>
 
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-<div class="card">
+        <div class="card">
 
-<h1>國立中央大學公共工程品質管理模擬測驗</h1>
-<p style="color:#666;font-size:18px;">
-公共工程品質管理訓練班(土建)
-模擬測驗系統</p>
-<p>
-100題 ｜ 90分鐘 ｜ 60分及格
-</p>
+            <h1>國立中央大學公共工程品質管理模擬測驗</h1>
+            <p style="color:#666;font-size:18px;">
+                公共工程品質管理訓練班(土建)
+                模擬測驗系統</p>
+            <p>
+                100題 ｜ 90分鐘 ｜ 60分及格
+            </p>
 
-<div id="questionBankInfo"
-style="
+            <div id="questionBankInfo" style="
     margin-top:10px;
     padding:12px;
     background:linear-gradient(90deg,#1e3c72,#2a5298);
@@ -161,112 +178,111 @@ style="
     text-align:center;
     font-weight:bold;
 ">
-    題庫載入中...
-</div>
+                題庫載入中...
+            </div>
+ 
+            <div class="info">
+                <div>剩餘時間：<span id="timer">01:30:00</span></div>
+                <div>已作答：<span id="answered">0</span>/100</div>
+                <div>題號：<span id="qno">1</span>/100</div>
+            </div>
 
-<div class="info">
-<div>剩餘時間：<span id="timer">01:30:00</span></div>
-<div>已作答：<span id="answered">0</span>/100</div>
-<div>題號：<span id="qno">1</span>/100</div>
-</div>
+        </div>
 
-</div>
+        <div id="examArea" class="card">
 
-<div id="examArea" class="card">
+            <h2 id="question"></h2>
 
-<h2 id="question"></h2>
+            <div id="options"></div>
 
-<div id="options"></div>
+            <div>
 
-<div>
+                <button class="btn-primary" onclick="prevQuestion()">
+                    上一題
+                </button>
 
-<button class="btn-primary"
-onclick="prevQuestion()">
-上一題
-</button>
+                <button class="btn-primary" onclick="nextQuestion()">
+                    下一題
+                </button>
 
-<button class="btn-primary"
-onclick="nextQuestion()">
-下一題
-</button>
+                <button class="btn-danger" onclick="submitExam()">
+                    交卷
+                </button>
 
-<button class="btn-danger"
-onclick="submitExam()">
-交卷
-</button>
+            </div>
 
-</div>
+        </div>
 
-</div>
+        <div id="result" class="card"></div>
 
-<div id="result" class="card"></div>
+    </div>
 
-</div>
+    <script>
 
-<script>
+        let questionBank = [];
+        let examQuestions = [];
+        let answers = [];
+        let current = 0;
 
-let questionBank=[];
-let examQuestions=[];
-let answers=[];
-let current=0;
+        const EXAM_VERSION = "V8.1";
 
-//=================================
+        //=================================
 
-function shuffle(array){
+        function shuffle(array) {
 
-for(let i=array.length-1;i>0;i--){
+            for (let i = array.length - 1; i > 0; i--) {
 
-const j=Math.floor(
-Math.random()*(i+1)
-);
+                const j = Math.floor(
+                    Math.random() * (i + 1)
+                );
 
-[array[i],array[j]]=
-[array[j],array[i]];
-}
+                [array[i], array[j]] =
+                    [array[j], array[i]];
+            }
 
-return array;
+            return array;
 
-}
+        }
 
-//=================================
+        //=================================
 
-function parseQuestion(text){
+        function parseQuestion(text) {
 
-const regex=
-/(.*)\(A\)(.*?)\(B\)(.*?)\(C\)(.*?)\(D\)(.*)/s;
+            const regex =
+                /(.*)\(A\)(.*?)\(B\)(.*?)\(C\)(.*?)\(D\)(.*)/s;
 
-const m=text.match(regex);
+            const m = text.match(regex);
 
-if(!m) return null;
+            if (!m) return null;
 
-return{
+            return {
 
-question:m[1].trim(),
+                question: m[1].trim(),
 
-A:m[2].trim(),
+                A: m[2].trim(),
 
-B:m[3].trim(),
+                B: m[3].trim(),
 
-C:m[4].trim(),
+                C: m[4].trim(),
 
-D:m[5].trim()
+                D: m[5].trim()
 
-};
+            };
 
-}
-function downloadReview(){
+        }
+        function downloadReview() {
 
-    let txt = "";
+            let txt = "";
 
-    examQuestions.forEach((q,i)=>{
+            examQuestions.forEach((q, i) => {
 
-        const userAns = answers[i];
+                const userAns = answers[i];
 
-        txt += `
+                txt += `
 
 ================================
 
-第 ${i+1} 題
+第 ${i + 1} 題
 
 題目：
 ${q.q}
@@ -278,114 +294,126 @@ D. ${q.D}
 
 您的答案：
 ${userAns
-? `${userAns}. ${q[userAns]}`
-: "未作答"}
+                        ? `${userAns}. ${q[userAns]}`
+                        : "未作答"}
 
 正確答案：
 ${q.answer}. ${q[q.answer]}
 
 `;
 
-    });
+            });
 
-    const blob = new Blob(
-        [txt],
-        {
-            type:"text/plain;charset=utf-8"
+            const blob = new Blob(
+                [txt],
+                {
+                    type: "text/plain;charset=utf-8"
+                }
+            );
+
+            const a = document.createElement("a");
+
+            a.href = URL.createObjectURL(blob);
+
+            a.download = "模擬測驗結果.txt";
+
+            a.click();
         }
-    );
+        //=================================
 
-    const a = document.createElement("a");
+        async function loadQuestions() {
 
-    a.href = URL.createObjectURL(blob);
+            const response =
+                await fetch("questions.csv");
 
-    a.download = "模擬測驗結果.txt";
+            const csv =
+                await response.text();
 
-    a.click();
-}
-//=================================
+            const rows =
+                csv.split(/\r?\n/);
 
-async function loadQuestions(){
+            questionBank = [];
 
-    const response =
-        await fetch("questions.csv");
+            for (let i = 1; i < rows.length; i++) {
 
-    const csv =
-        await response.text();
+                const row = rows[i].trim();
 
-    const rows =
-        csv.split(/\r?\n/);
+                if (!row) continue;
 
-    questionBank = [];
+                const cols = row.split(",");
 
-    for(let i=1;i<rows.length;i++){
+                if (cols.length < 5) continue;
 
-        const row = rows[i].trim();
+                const answer =
+                    cols[cols.length - 1].trim();
 
-        if(!row) continue;
+                const questionText =
+                    cols.slice(2, cols.length - 2)
+                        .join(",");
 
-        const cols = row.split(",");
+                const p =
+                    parseQuestion(questionText);
 
-        if(cols.length < 5) continue;
+                if (!p) continue;
 
-        const answer =
-            cols[cols.length-1].trim();
+                questionBank.push({
+                    q: p.question,
+                    A: p.A,
+                    B: p.B,
+                    C: p.C,
+                    D: p.D,
+                    answer: answer
+                });
+            }
 
-        const questionText =
-            cols.slice(2, cols.length-2)
-            .join(",");
+            console.log(
+                "題庫載入完成：",
+                questionBank.length
+            );
+            document.getElementById("questionBankInfo").innerHTML =
+                `題庫：${questionBank.length}題 ｜ 來源更新：工程會115年08月18日版本 ｜ 由中央大學品管班提供`;
 
-        const p =
-            parseQuestion(questionText);
+            examQuestions =
+                shuffle([...questionBank])
+                    .slice(0, 100);
 
-        if(!p) continue;
+            answers =
+                new Array(100).fill(null);
 
-        questionBank.push({
-            q:p.question,
-            A:p.A,
-            B:p.B,
-            C:p.C,
-            D:p.D,
-            answer:answer
-        });
-    }
+            
 
-    console.log(
-        "題庫載入完成：",
-        questionBank.length
-    );
-    document.getElementById("questionBankInfo").innerHTML =
-`題庫：${questionBank.length}題 ｜ 來源更新：工程會115年08月18日版本 ｜ 由中央大學品管班提供`;
+            renderQuestion();
 
-    examQuestions =
-        shuffle([...questionBank])
-        .slice(0,100);
+            if (typeof clarity !== "undefined") {
 
-    answers =
-        new Array(100).fill(null);
+                clarity("set", "ExamName", "公共工程品質管理模擬測驗");
 
-    renderQuestion();
-}
+                clarity("set", "Version", EXAM_VERSION);
 
-//=================================
+                clarity("event", "ExamStarted");
+            
+            }
+            
+        }
+            //=================================
 
-function renderQuestion(){
+            function renderQuestion() {
 
-const q=
-examQuestions[current];
+                const q =
+                    examQuestions[current];
 
-document.getElementById("qno").innerText=
-current+1;
+                document.getElementById("qno").innerText =
+                    current + 1;
 
-document.getElementById("question").innerText=
-(current+1)+". "+q.q;
+                document.getElementById("question").innerText =
+                    (current + 1) + ". " + q.q;
 
-let html="";
+                let html = "";
 
-["A","B","C","D"]
-.forEach(opt=>{
+                ["A", "B", "C", "D"]
+                    .forEach(opt => {
 
-html+=`
+                        html += `
 <div class="option">
 
 <label>
@@ -395,9 +423,9 @@ type="radio"
 name="answer"
 value="${opt}"
 
-${answers[current]===opt
-?"checked":""
-}
+${answers[current] === opt
+                                ? "checked" : ""
+                            }
 
 onchange="saveAnswer('${opt}')">
 
@@ -408,141 +436,136 @@ ${opt}. ${q[opt]}
 </div>
 `;
 
-});
+                    });
 
-document.getElementById("options")
-.innerHTML=html;
+                document.getElementById("options")
+                    .innerHTML = html;
 
-updateCounter();
+                updateCounter();
 
-}
+            }
 
-//=================================
+            //=================================
 
-function saveAnswer(ans){
+            function saveAnswer(ans) {
 
-answers[current]=ans;
+                answers[current] = ans;
 
-updateCounter();
+                updateCounter();
 
-}
+            }
 
-function updateCounter(){
+            function updateCounter() {
 
-document.getElementById("answered")
-.innerText=
-answers.filter(
-x=>x!==null
-).length;
+                document.getElementById("answered")
+                    .innerText =
+                    answers.filter(
+                        x => x !== null
+                    ).length;
 
-}
+            }
 
-//=================================
+            //=================================
 
-function nextQuestion(){
+            function nextQuestion() {
 
-if(current<99){
+                if (current < 99) {
 
-current++;
+                    current++;
 
-renderQuestion();
+                    renderQuestion();
 
-}
+                    
 
-}
 
-function prevQuestion(){
+                }
 
-if(current>0){
+            
 
-current--;
+            }
+            //=================================
 
-renderQuestion();
+            let remain =
+                90 * 60;
 
-}
+            function updateTimer(){
 
-}
+    const h =
+        Math.floor(remain / 3600);
 
-//=================================
+    const m =
+        Math.floor(
+            (remain % 3600) / 60
+        );
 
-let remain=
-90*60;
+    const s =
+        remain % 60;
 
-function updateTimer(){
-
-const h=
-Math.floor(remain/3600);
-
-const m=
-Math.floor(
-(remain%3600)/60
-);
-
-const s=
-remain%60;
-
-document.getElementById("timer")
-.innerText=
-
-`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+    document.getElementById("timer")
+    .innerText =
+    `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 
 }
 
-updateTimer();
+            updateTimer();
 
-const timer=
-setInterval(()=>{
+            const timer =
+                setInterval(() => {
 
-remain--;
+                    remain--;
 
-updateTimer();
+                    updateTimer();
 
-if(remain<=0){
+                    if (remain <= 0) {
 
-clearInterval(timer);
+                        clearInterval(timer);
 
-alert("測驗時間到，自動交卷");
+                        alert("測驗時間到，自動交卷");
 
-submitExam();
+                        submitExam();
 
-}
+                    }
 
-},1000);
+                }, 1000);
 
-//=================================
-function submitExam(){
+            //=================================
+            function submitExam() {
 
-    const confirmSubmit = confirm(
-        "確定要交卷嗎？\n\n交卷後將無法再修改答案。"
-    );
+                const confirmSubmit = confirm(
+                    "確定要交卷嗎？\n\n交卷後將無法再修改答案。"
+                );
 
-    if(!confirmSubmit){
-        return;
-    }
+                if (!confirmSubmit) {
+                    return;
+                }
 
-    clearInterval(timer);
+                clearInterval(timer);
 
-    let score = 0;
-    let review = "";
+                if (typeof clarity !== "undefined") {
+                    clarity("event", "ExamSubmitted");
+                }
 
-    examQuestions.forEach((q,i)=>{
+                let score = 0;
+                let review = "";
 
-        const userAns = answers[i];
+                examQuestions.forEach((q, i) => {
 
-        const isCorrect =
-            userAns === q.answer;
+                    const userAns = answers[i];
 
-        if(isCorrect){
-            score++;
-        }
+                    const isCorrect =
+                        userAns === q.answer;
 
-        review += `
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    review += `
 
         <div class="wrong-card">
 
             <h3>
                 ${isCorrect ? "✅" : "❌"}
-                第 ${i+1} 題
+                第 ${i + 1} 題
             </h3>
 
             <p>
@@ -552,11 +575,10 @@ function submitExam(){
 
             <div class="wrong-answer">
                 <strong>您的答案：</strong>
-                ${
-                    userAns
-                    ? `${userAns}. ${q[userAns]}`
-                    : "未作答"
-                }
+                ${userAns
+                            ? `${userAns}. ${q[userAns]}`
+                            : "未作答"
+                        }
             </div>
 
             <div class="correct-answer">
@@ -566,23 +588,67 @@ function submitExam(){
 
         </div>
 
-        `;
+`;
+});
+               
+                const answeredCount =
+                    answers.filter(x => x !== null).length;
 
-    });
+                if (typeof clarity !== "undefined") {
 
-    document.getElementById("result").innerHTML = `
+                    clarity("event", "Score_" + score);
+
+                    if (score >= 60) {
+                        clarity("event", "ExamPass");
+                    } else {
+                        clarity("event", "ExamFail");
+                    }
+                }
+
+                const examData = {
+
+    time:new Date().toLocaleString(),
+
+    score:score,
+
+    result:
+        score >= 60
+        ? "及格"
+        : "不及格",
+
+    answered:
+        answers.filter(
+            x => x !== null
+        ).length,
+
+    version:"V8.1"
+
+};
+
+fetch(
+    "https://script.google.com/macros/s/AKfycbyyLEveIw0mcLbIXmUT11w2P2SXQyNTjw_N72XSTKQveb7k_5BkiszMOPvst2d91KTTlw/exec",
+    {
+        method: "POST",
+        body: JSON.stringify(examData)
+    }
+)
+.then(r => r.text())
+.then(console.log)
+.catch(console.error);
+
+                document.getElementById("result").innerHTML = `
 
         <h2>測驗完成</h2>
 
         <h1>${score} 分</h1>
 
-        <h2 style="color:${score>=60?'green':'red'};">
-            ${score>=60?'✅及格':'❌不及格'}
+        <h2 style="color:${score >= 60 ? 'green' : 'red'};">
+            ${score >= 60 ? '✅及格' : '❌不及格'}
         </h2>
 
         <p>答對：${score} 題</p>
 
-        <p>答錯：${100-score} 題</p>
+        <p>答錯：${100 - score} 題</p>
 
         <button
             class="btn-primary"
@@ -602,19 +668,27 @@ function submitExam(){
 
         ${review}
 
-    `;
+`;
 
-    document.getElementById("examArea")
-    .style.display = "none";
+                document.getElementById("examArea")
+                    .style.display = "none";
 
-    document.getElementById("result")
-    .style.display = "block";
+                document.getElementById("result")
+                    .style.display = "block";
 
-    window.scrollTo(0,0);
-}
-//=================================
-loadQuestions();
+                window.scrollTo(0, 0);
+            }
+            //=================================
+            loadQuestions();
+            function prevQuestion() {
+                if (current > 0) {
+                    current--;
+                    renderQuestion();
+                }
+            }
 
-</script>
+
+    </script>
 </body>
-</html>    
+
+</html>
