@@ -10,7 +10,7 @@
     };
     t=l.createElement(r);
     t.async=1;
-    t.src="https://www.clarity.ms/tag/"+i;
+    t.src = "https://www.clarity.ms/tag/" + i;
     y=l.getElementsByTagName(r)[0];
     y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "y0h3pal3gk");
@@ -180,7 +180,30 @@
 ">
                 題庫載入中...
             </div>
- 
+ <div style="
+    margin:15px 0;
+    padding:15px;
+    background:#f8f9fa;
+    border-radius:8px;
+">
+    <label>
+        期別：
+        <input
+            type="text"
+            id="batch"
+            placeholder="例如：11501期"
+            style="padding:6px;width:160px;">
+    </label>
+
+    <label style="margin-left:15px;">
+        座號：
+        <input
+            type="text"
+            id="seatNo"
+            placeholder="例如：12"
+            style="padding:6px;width:100px;">
+    </label>
+</div>
             <div class="info">
                 <div>剩餘時間：<span id="timer">01:30:00</span></div>
                 <div>已作答：<span id="answered">0</span>/100</div>
@@ -323,10 +346,12 @@ ${q.answer}. ${q[q.answer]}
 
         async function loadQuestions() {
 
+            console.log("開始載入題庫");
+
             const response =
                 await fetch("questions.csv");
 
-            const csv =
+            const csv = 
                 await response.text();
 
             const rows =
@@ -538,7 +563,23 @@ ${opt}. ${q[opt]}
                 if (!confirmSubmit) {
                     return;
                 }
+const batch =
+    document.getElementById("batch")
+    .value.trim();
 
+const seatNo =
+    document.getElementById("seatNo")
+    .value.trim();
+
+if (!batch) {
+    alert("請輸入期別");
+    return;
+}
+
+if (!seatNo) {
+    alert("請輸入座號");
+    return;
+}
                 clearInterval(timer);
 
                 if (typeof clarity !== "undefined") {
@@ -606,10 +647,13 @@ ${opt}. ${q[opt]}
                 }
 
                 const examData = {
+    time: new Date().toLocaleString(),
 
-    time:new Date().toLocaleString(),
+    batch: batch,
 
-    score:score,
+    seatNo: seatNo,
+
+    score: score,
 
     result:
         score >= 60
@@ -621,74 +665,75 @@ ${opt}. ${q[opt]}
             x => x !== null
         ).length,
 
-    version:"V8.1"
-
+    version: EXAM_VERSION
 };
 
-fetch(
-    "https://script.google.com/macros/s/AKfycbyyLEveIw0mcLbIXmUT11w2P2SXQyNTjw_N72XSTKQveb7k_5BkiszMOPvst2d91KTTlw/exec",
-    {
-        method: "POST",
-        body: JSON.stringify(examData)
-    }
-)
+fetch("https://script.google.com/macros/s/AKfycbyyLEveIw0mcLbIXmUT11w2P2SXQyNTjw_N72XSTKQveb7k_5BkiszMOPvst2d91KTTlw/exec", {
+    method: "POST",
+    body: JSON.stringify(examData)
+})
 .then(r => r.text())
 .then(console.log)
 .catch(console.error);
 
                 document.getElementById("result").innerHTML = `
+<h2>測驗完成</h2>
 
-        <h2>測驗完成</h2>
+<p><b>期別：</b>${batch}</p>
 
-        <h1>${score} 分</h1>
+<p><b>座號：</b>${seatNo}</p>
 
-        <h2 style="color:${score >= 60 ? 'green' : 'red'};">
-            ${score >= 60 ? '✅及格' : '❌不及格'}
-        </h2>
+<h1>${score} 分</h1>
 
-        <p>答對：${score} 題</p>
+<h2 style="color:${score >= 60 ? 'green' : 'red'};">
+    ${score >= 60 ? '✅及格' : '❌不及格'}
+</h2>
 
-        <p>答錯：${100 - score} 題</p>
+<p>答對：${score} 題</p>
 
-        <button
-            class="btn-primary"
-            onclick="downloadReview()">
-            📥下載完整考卷
-        </button>
+<p>答錯：${100 - score} 題</p>
 
-        <button
-            class="btn-success"
-            onclick="location.reload()">
-            重新測驗
-        </button>
+<button
+    class="btn-primary"
+    onclick="downloadReview()">
+    📥下載完整考卷
+</button>
 
-        <hr>
+<button
+    class="btn-success"
+    onclick="location.reload()">
+    重新測驗
+</button>
 
-        <h3>完整試卷與答案</h3>
+<hr>
 
-        ${review}
+<h3>完整試卷與答案</h3>
+
+${review}
 
 `;
+document.getElementById("examArea")
+    .style.display = "none";
 
-                document.getElementById("examArea")
-                    .style.display = "none";
+document.getElementById("result")
+    .style.display = "block";
 
-                document.getElementById("result")
-                    .style.display = "block";
+window.scrollTo(0, 0);
 
-                window.scrollTo(0, 0);
-            }
-            //=================================
-            loadQuestions();
-            function prevQuestion() {
-                if (current > 0) {
-                    current--;
-                    renderQuestion();
-                }
-            }
+}
 
+loadQuestions();
 
-    </script>
+function prevQuestion() {
+
+    if (current > 0) {
+        current--;
+        renderQuestion();
+    }
+
+}
+
+</script>
+
 </body>
-
 </html>
